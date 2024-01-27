@@ -26,10 +26,7 @@ namespace GameState
         // The internal dictionary that is created from the array of objects
         private Dictionary<string, GameObject> _prefabObjectDictionary = new(); 
         
-        public bool IsKeyValid(string key)
-        {
-            return _prefabObjectDictionary.ContainsKey(key);
-        }
+        public bool IsKeyValid(string key) => _prefabObjectDictionary.ContainsKey(key);
         
         void OnEnable()
         {
