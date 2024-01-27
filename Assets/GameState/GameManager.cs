@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GameState;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// GameManager is where our globally accessible systems are stored as well as managing how to transition between particular
@@ -12,14 +13,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     // A customizable dictionary that we can use to dynamically load all prefabs that we need
-    [SerializeField] private GameObjectReference _gameObjectReference;
+    [SerializeField] private GameObjectReference _systemGameObjectReference;
     
     // Dictionary that stores all of the systems that we have created at runtime
     private readonly Dictionary<string,GameObject> _gameSystemDictionary = new ();
 
     void Awake()
     {
-        if (_gameObjectReference == null)
+        if (_systemGameObjectReference == null)
         {
             Debug.LogError("You've attempted to start a scene without a game object reference set up.");
         }
@@ -53,13 +54,13 @@ public class GameManager : MonoBehaviour
         else
         {
             // check if key is available in the GameObjectReference object
-            if (!_gameObjectReference.IsKeyValid(systemName))
+            if (!_systemGameObjectReference.IsKeyValid(systemName))
             {
                 Debug.LogError($"Attempted to find a system with key name {systemName} but no key with that name was found.");
             }
             
             //Initialize system and add to dictionary
-            var system = _gameObjectReference.InitializePrefabObject(systemName, transform).GetComponent<T>();
+            var system = _systemGameObjectReference.InitializePrefabObject(systemName, transform).GetComponent<T>();
             _gameSystemDictionary.Add(systemName, system.gameObject);
             
             Debug.Log($"Added {systemName} to the game system dictionary.");
