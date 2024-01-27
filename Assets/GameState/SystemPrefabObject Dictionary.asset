@@ -15,5 +15,5 @@ MonoBehaviour:
   prefabObjects:
   - name: InputSystem
     prefabObject: {fileID: 4778425922647969531, guid: 5fc3ace57eed2409b949ff739bc0e006, type: 3}
-  - name: FadeControl
-    prefabObject: {fileID: 4778425922647969531, guid: 5fc3ace57eed2409b949ff739bc0e006, type: 3}
+  - name: LevelChanger
+    prefabObject: {fileID: 4304632588156787946, guid: 14b0e65316bf6ce419aeb9b30e2f267e, type: 3}

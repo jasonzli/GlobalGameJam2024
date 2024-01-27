@@ -338,7 +338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053c3953ace84438794243c4d79f3cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bananaPrefabObject: {fileID: 7750754968981100436, guid: 519d126b80410417d98f55efcd347460, type: 3}
   _bananaSpawnPoint: {fileID: 563773597}
   _bananaThrowForce: 700
   _bananaThrowTorque: 400

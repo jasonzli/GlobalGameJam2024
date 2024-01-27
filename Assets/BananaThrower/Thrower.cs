@@ -14,7 +14,7 @@ public class Thrower : MonoBehaviour
         // Assign the Local InputSystem to the GameManager's InputSystem
         _inputSystem = GameManager.Instance.Get<InputSystem>();
         // Hook into any events using the Action Assignment
-        _inputSystem.OnLeftClick += ThrowBanana;    
+        _inputSystem.OnLeftClick += ThrowBanana;
     }
     
     void ThrowBanana()

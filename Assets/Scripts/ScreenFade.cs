@@ -19,7 +19,11 @@ public class ScreenFade : MonoBehaviour
         }
     }
 
-    public void FadeOut(bool stay, int sceneIndex) //bool is whether it stays in the same scene, int is the index for the scene it needs to change to
+    public void FadeOutOnly()
+    {
+        FadeOut();
+    }
+    public void FadeOut(bool stay = true, int sceneIndex = 0) //bool is whether it stays in the same scene, int is the index for the scene it needs to change to
     {
         if (stay)
         {
