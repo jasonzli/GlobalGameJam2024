@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     
     // A customizable dictionary that we can use to dynamically load all prefabs that we need
     [SerializeField] private GameObjectReference _systemGameObjectReference;
+
+    [SerializeField] private GameObjectReference _gameplayObjectReference;
     
     // Dictionary that stores all of the systems that we have created at runtime
     private readonly Dictionary<string,GameObject> _gameSystemDictionary = new ();
@@ -37,12 +39,31 @@ public class GameManager : MonoBehaviour
         
     }
     
+    /// <summary>
+    /// Creates an instance of a gameplay object by name and returns it. If no transform is provided, it will use the GameManager's transform.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="trans"></param>
+    /// <returns>Instance of the gameplay object's matching component</returns>
+    /// <remarks>Use this method to create instances of prefabs that are not systems. Uses the GamePrefab Dictionary asset</remarks>
+    public T CreateInstance<T>() where T: MonoBehaviour
+    {
+        string key = typeof(T).Name;
+        if (!_gameplayObjectReference.IsKeyValid(key))
+        {
+            Debug.LogError($"Attempted to create a gameplay object with key name {key} but no key with that name was found.");
+        }
+        var gameplayObject = _gameplayObjectReference.InitializePrefabObject(key, transform);
+        return gameplayObject.GetComponent<T>();
+    }
+    
     
     /// <summary>
     /// Returns the existing instance of a game manager system if it exists, otherwise creates a new one and returns it.
     /// </summary>
     /// <typeparam name="T">The Type of the System that you want to use</typeparam>
     /// <returns>The Component of system</returns>
+    /// <remarks>Use this method to create instances of prefabs that are not systems. Uses the SystemPrefabObject Dictionary asset</remarks>
     public T Get<T>() where T: MonoBehaviour
     {
         string systemName = typeof(T).Name;
@@ -67,4 +88,68 @@ public class GameManager : MonoBehaviour
             return system;
         }
     }
+    
+        #region CreateInstance overloads for parent, position, and rotation
+    // CreateInstance overloads for parent, position, and rotation
+    public T CreateInstance<T>(Transform parent, Vector3 position, Quaternion rotation) where T: MonoBehaviour
+    {
+        var component = CreateInstance<T>();
+        Transform componentTransform = component.transform;
+        componentTransform.position = position;
+        componentTransform.rotation = rotation;
+        componentTransform.parent = parent;
+        return component;
+    }
+    
+    public T CreateInstance<T>(Vector3 position, Quaternion rotation) where T: MonoBehaviour
+    {
+        var component = CreateInstance<T>();
+        Transform componentTransform = component.transform;
+        componentTransform.position = position;
+        componentTransform.rotation = rotation;
+        return component;
+    }
+    
+    public T CreateInstance<T>(Transform parent, Vector3 position) where T: MonoBehaviour
+    {
+        var component = CreateInstance<T>();
+        Transform componentTransform = component.transform;
+        componentTransform.position = position;
+        componentTransform.parent = parent;
+        return component;
+    }
+    
+    public T CreateInstance<T>(Vector3 position) where T: MonoBehaviour
+    {
+        var component = CreateInstance<T>();
+        Transform componentTransform = component.transform;
+        componentTransform.position = position;
+        return component;
+    }
+    
+    public T CreateInstance<T>(Transform parent, Quaternion rotation) where T: MonoBehaviour
+    {
+        var component = CreateInstance<T>();
+        Transform componentTransform = component.transform;
+        componentTransform.rotation = rotation;
+        componentTransform.parent = parent;
+        return component;
+    }
+    
+    public T CreateInstance<T>(Quaternion rotation) where T: MonoBehaviour
+    {
+        var component = CreateInstance<T>();
+        Transform componentTransform = component.transform;
+        componentTransform.rotation = rotation;
+        return component;
+    }
+    
+    public T CreateInstance<T>(Transform parent) where T: MonoBehaviour
+    {
+        var component = CreateInstance<T>();
+        Transform componentTransform = component.transform;
+        componentTransform.parent = parent;
+        return component;
+    }
+    #endregion
 }

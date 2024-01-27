@@ -17,7 +17,13 @@ public class Thrower : MonoBehaviour
     
     void ThrowBanana()
     {
-        var banana = Instantiate(_bananaPrefabObject, _bananaSpawnPoint.position, _bananaSpawnPoint.rotation);
+        //var banana = Instantiate(_bananaPrefabObject, _bananaSpawnPoint.position, _bananaSpawnPoint.rotation);
+        
+        // Note, see how this GameManager code no longer requires the instance to be passed in?
+        Banana banana =
+            GameManager.Instance.CreateInstance<Banana>(transform, _bananaSpawnPoint.position,
+                _bananaSpawnPoint.rotation);
+        
         var bananaRigidbody = banana.GetComponent<Rigidbody>();
         bananaRigidbody.AddForce(_bananaSpawnPoint.forward * _bananaThrowForce);
         bananaRigidbody.AddTorque(_bananaSpawnPoint.up * _bananaThrowTorque);

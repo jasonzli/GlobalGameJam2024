@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08ef69fb46cac42eeb729d767287b12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameObjectReference: {fileID: 11400000, guid: 1d713e70882c9434ab92500d77e10205, type: 2}
+  _systemGameObjectReference: {fileID: 11400000, guid: 1d713e70882c9434ab92500d77e10205, type: 2}
+  _gameplayObjectReference: {fileID: 11400000, guid: cf4beb7f07b3143e8b385fb9d8e2092f, type: 2}
