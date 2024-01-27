@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 525328626aaa480dadd517ec9052a42d, type: 3}
-  m_Name: PrefabObject Dictionary
+  m_Name: SystemPrefabObject Dictionary
   m_EditorClassIdentifier: 
   prefabObjects:
-  - prefabKeyName: InputSystem
+  - name: InputSystem
     prefabObject: {fileID: 4778425922647969531, guid: 5fc3ace57eed2409b949ff739bc0e006, type: 3}
