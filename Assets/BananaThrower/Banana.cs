@@ -19,6 +19,14 @@ public class Banana : MonoBehaviour
             _rigidbody.isKinematic = true;
             _collider.isTrigger = true;
         }
+        
+        // Destroy object if collies with Monkey or Player
+        // Let them handle the logic of what happens when they get hit
+        if (other.gameObject.CompareTag("Monkey") || other.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
     }
+    
     
 }
