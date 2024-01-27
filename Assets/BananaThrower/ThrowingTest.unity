@@ -340,8 +340,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bananaPrefabObject: {fileID: 7750754968981100436, guid: 519d126b80410417d98f55efcd347460, type: 3}
   _bananaSpawnPoint: {fileID: 563773597}
-  _bananaThrowForce: 1000
-  _bananaThrowTorque: 10
+  _bananaThrowForce: 700
+  _bananaThrowTorque: 400
 --- !u!4 &850827013
 Transform:
   m_ObjectHideFlags: 0
