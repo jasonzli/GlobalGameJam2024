@@ -5,21 +5,43 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviour
 {
+    
+    [Header("Camera")]
     public Camera playerCamera;
+
+    [Header("Speed")]
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
+
+    [Header("Gravity")]
     public float jumpPower = 7f;
     public float gravity = 10f;
  
- 
+    [Header("Sensitivity and Limits")]
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
  
  
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
+
+
+
+    [Header("Animation")]
+    public Animator animator;
+
+     public float grabCooldown = 1.5f; 
+    private float grabCooldownTimer;
+
+    public float throwCooldown = 1.5f;  
+    private float throwCooldownTimer;
  
+    [Header("Bool Check")]
     public bool canMove = true;
+    public bool isBanana = false;
+    public bool bananaEaten = false;
+
+
  
     
     CharacterController characterController;
@@ -32,6 +54,7 @@ public class FPSController : MonoBehaviour
  
     void Update()
     {
+        Animate();
  
         #region Handles Movment
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -75,5 +98,33 @@ public class FPSController : MonoBehaviour
         }
  
         #endregion
+    }
+
+    public void Animate()
+    {
+
+        if(isBanana)
+        {
+            if (Input.GetKeyDown(KeyCode.E) && Time.time > grabCooldownTimer)
+            {
+                animator.SetTrigger("Grab");
+
+
+                grabCooldownTimer = Time.time + grabCooldown;
+            }
+        }
+        
+
+        if(bananaEaten)
+        {
+            if (Input.GetMouseButtonDown(0) && Time.time > throwCooldownTimer)
+            {
+                animator.SetTrigger("Throw");
+
+                throwCooldownTimer = Time.time + throwCooldown;
+            }
+        }
+        
+        
     }
 }
