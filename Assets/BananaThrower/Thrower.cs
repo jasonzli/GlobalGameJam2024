@@ -22,4 +22,9 @@ public class Thrower : MonoBehaviour
         bananaRigidbody.AddForce(_bananaSpawnPoint.forward * _bananaThrowForce);
         bananaRigidbody.AddTorque(_bananaSpawnPoint.up * _bananaThrowTorque);
     }
+
+    void OnDisable()
+    {
+        _inputSystem.OnLeftClick -= ThrowBanana;
+    }
 }
