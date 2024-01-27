@@ -15,3 +15,5 @@ MonoBehaviour:
   prefabObjects:
   - name: Banana
     prefabObject: {fileID: 7750754968981100436, guid: 519d126b80410417d98f55efcd347460, type: 3}
+  - name: Monkey
+    prefabObject: {fileID: 547909762681190432, guid: 10d9e03ddc82d4428b9be2551fbc75cd, type: 3}

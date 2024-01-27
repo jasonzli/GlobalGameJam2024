@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     
     // A customizable dictionary that we can use to dynamically load all prefabs that we need
     [SerializeField] private GameObjectReference _systemGameObjectReference;
-
     [SerializeField] private GameObjectReference _gameplayObjectReference;
     
     // Dictionary that stores all of the systems that we have created at runtime
