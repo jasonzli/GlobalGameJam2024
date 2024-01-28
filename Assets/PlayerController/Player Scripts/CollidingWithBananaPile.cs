@@ -16,8 +16,6 @@ public class CollidingWithBananaPile : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            bananaOnHand.SetActive(true);
-            playerController.isBanana = true;
             if (DestroyOnCollide) Destroy(gameObject);
         }
     }

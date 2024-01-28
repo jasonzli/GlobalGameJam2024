@@ -17,6 +17,7 @@ public class PlayerUI : MonoBehaviour
         _stateController = stateController;
         _stateController.BananaScoreChanged += UpdateBananaScore;
         _stateController.MonkeysSurvivedChanged += UpdateMonkeyCount;
+        SetBananaScoreText(stateController.BananasEaten);
         _timeControl.Reset();
     }
 

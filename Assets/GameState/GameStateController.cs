@@ -12,6 +12,8 @@ public class GameStateController : MonoBehaviour
     [SerializeField] private Transform _canvasRoot;
     [SerializeField] private Camera _titleCamera;
     [SerializeField] private List<Transform> _monkeySpawnPoints;
+    [SerializeField] private AudioSource _titleAudioSource;
+    [SerializeField] private AudioClip endingStrum;
     #endregion
     
     #region Game State Properties
@@ -20,6 +22,8 @@ public class GameStateController : MonoBehaviour
     public event Action<int> BananaHitScoreChanged;
     public event Action<int> MonkeysSurvivedChanged;
     public event Action MonkeyHit;
+    
+    private List<MonkeyController> _monkeys = new List<MonkeyController>();
 
     private int _bananasEaten;
     public int BananasEaten
@@ -95,6 +99,11 @@ public class GameStateController : MonoBehaviour
             _titleScreenUI = GameManager.Instance.CreateInstance<TitleScreenUI>();
             _titleScreenUI.transform.SetParent(_canvasRoot, false);
             _titleScreenUI.startButton.onClick.AddListener(StartGame);
+            _titleScreenUI.startButton.onClick.AddListener(() =>
+            {
+                _titleAudioSource.clip = endingStrum;
+                _titleAudioSource.Play();
+            });
             _titleScreenUI.quitButton.onClick.AddListener(QuitGame);
         }
         
@@ -129,6 +138,7 @@ public class GameStateController : MonoBehaviour
         {
             _activePlayer = GameManager.Instance.CreateInstance<PlayerController>(null, _playerSpawnPoint.position, _playerSpawnPoint.rotation);
             _activePlayer.OnBananaEaten += AddScore;
+            _activePlayer.OnBananaEaten += CreateMonkey;
             _activePlayer.OnCaughtByMonkey += EndGame;
         }
         else
@@ -167,6 +177,21 @@ public class GameStateController : MonoBehaviour
         // Set the game state to playing
         CurrentGameState = GameState.Playing;
     }
+    
+    // Coroutine every time you eat a banana, spawn a new monkey
+    public void CreateMonkey()
+    {
+        // Pick a random location among spawn points
+        int randomIndex = UnityEngine.Random.Range(0, _monkeySpawnPoints.Count);
+        Transform spawnPoint = _monkeySpawnPoints[randomIndex];
+        
+        // Create a new monkey at that location
+        MonkeyController newMonkey = GameManager.Instance.CreateInstance<MonkeyController>(null, spawnPoint.position, spawnPoint.rotation);
+        newMonkey.OnSlippedOnPeel += AddHitScore;
+        
+        // Add the new monkey to the list of monkeys
+        _monkeys.Add(newMonkey);
+    }
 
     public void EndGame()
     {
@@ -191,6 +216,11 @@ public class GameStateController : MonoBehaviour
             _endScreenUI.transform.SetParent(_canvasRoot, false);
             _endScreenUI.resetButton.onClick.AddListener(SetupGame);
             _endScreenUI.quitButton.onClick.AddListener(QuitGame);
+            _endScreenUI.resetButton.onClick.AddListener(() =>
+            {
+                _titleAudioSource.clip = endingStrum;
+                _titleAudioSource.Play();
+            });
         }
         _endScreenUI.gameObject.SetActive(true);
         _endScreenUI.SetToState(this);
@@ -202,7 +232,14 @@ public class GameStateController : MonoBehaviour
         // TODO something to do with all the monkeys so they can be reset too.
         
         OnGameReset?.Invoke();
+        // Destroy all monkeys in monkeys list
+        foreach (var monkey in _monkeys)
+        {
+            Destroy(monkey.gameObject);
+        }
+        _monkeys.Clear();
         ShowTitleScreen();
+        _titleAudioSource.clip = endingStrum;
         _endScreenUI?.gameObject?.SetActive(false);
         _activePlayer?.gameObject?.SetActive(false);
     }

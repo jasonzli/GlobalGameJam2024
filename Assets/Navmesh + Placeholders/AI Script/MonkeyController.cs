@@ -8,6 +8,7 @@ using UnityEngine.Animations;
 public class MonkeyController : MonoBehaviour
 {
 
+    
     [Header("CustomizableFields")] [SerializeField]
     private float chaseTime = 4;
     
@@ -22,6 +23,8 @@ public class MonkeyController : MonoBehaviour
     
     [SerializeField] private AudioClip _monkeyChaseClip;
     [SerializeField] private float _monkeyChaseVolume = 0.5f;
+
+    public event Action OnSlippedOnPeel; 
     
     // Private fields
     private PlayerController _activePlayerTarget;
@@ -39,7 +42,9 @@ public class MonkeyController : MonoBehaviour
         _audioSource.volume = _monkeyChaseVolume;
         _audioSource.loop = true;
         _audioSource.Play();
+        
     }
+
 
     private void Start()
     {
@@ -66,6 +71,10 @@ public class MonkeyController : MonoBehaviour
             _audioSource.volume = _monkeyFallVolume;
             _audioSource.Play();
             
+            gameObject.tag = "Untagged";
+            
+            OnSlippedOnPeel?.Invoke();
+            
             _FallAnimator.SetTrigger("Flat");
             StartCoroutine(RenableMovement());
         }
@@ -81,11 +90,18 @@ public class MonkeyController : MonoBehaviour
         }
 
         _hasFallen = false;
+        gameObject.tag = "Monkey";
         _lookAtConstraint.constraintActive = true;
         _audioSource.Stop();
         _audioSource.clip = _monkeyChaseClip;
         _audioSource.volume = _monkeyChaseVolume;
         _audioSource.loop = true;
         _audioSource.Play();
+    }
+
+    private void OnDisable()
+    {
+        _audioSource.Stop();
+        OnSlippedOnPeel = null;
     }
 }

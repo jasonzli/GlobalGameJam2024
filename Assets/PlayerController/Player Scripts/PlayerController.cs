@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("Prefab References")] 
     [SerializeField] private AudioSource _runningAudioSource;
     [SerializeField] private AudioSource _bananaAudioSource;
+    [SerializeField] private AudioSource _gameAudioSource;
     [SerializeField] private AudioClip _bananaEatenClip;
     [SerializeField] private float _bananaEatenVolume = 0.5f;
     [SerializeField] private AudioClip _runningClip;
@@ -226,6 +227,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Caught by monkey");
             OnCaughtByMonkey?.Invoke();
+            _gameAudioSource.Stop();
+            _bananaAudioSource.Stop();
+            _runningAudioSource.Stop();
         }
     }
 
@@ -238,6 +242,11 @@ public class PlayerController : MonoBehaviour
             freshBanana.SetActive(true);
             isBanana = true;
         }
+    }
+
+    private void OnDisable()
+    {
+        bananaThrower.Reset();
     }
     
 }
