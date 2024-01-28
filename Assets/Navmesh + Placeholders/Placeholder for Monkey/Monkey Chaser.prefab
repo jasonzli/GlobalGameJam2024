@@ -56,7 +56,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15190753157678202}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 10
@@ -91,7 +91,7 @@ MonoBehaviour:
   _monkeyFallClip: {fileID: 8300000, guid: a3268802fb06b4688b1fe276f1e0e75f, type: 3}
   _monkeyFallVolume: 0.5
   _monkeyChaseClip: {fileID: 8300000, guid: 47b13c56c3414c6499e6b4472047cdf3, type: 3}
-  _monkeyChaseVolume: 0.2
+  _monkeyChaseVolume: 0.4
 --- !u!136 &7273142863231373220
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -225,9 +225,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

@@ -49,6 +49,14 @@ public class MonkeyController : MonoBehaviour
     private void Start()
     {
         SetPlayerTarget(GameObject.FindWithTag("Player").GetComponent<PlayerController>());
+        Vector3 sourcePostion = transform.position;//The position you want to place your agent
+        NavMeshHit closestHit;
+        if( NavMesh.SamplePosition(  sourcePostion, out closestHit, 500, 1 ) ){
+            transform.position = closestHit.position;
+        }
+
+        _navMeshAgent.Warp(transform.position);
+        _navMeshAgent.enabled = true;
     }
 
     void Update()
