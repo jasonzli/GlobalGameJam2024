@@ -81,11 +81,17 @@ public class GameStateController : MonoBehaviour
     private EndScreenUI _endScreenUI;
     #endregion
 
+    void Start()
+    {
+        SetupGame();
+    }
+
     public void ShowTitleScreen()
     {
         if (_titleScreenUI == null)
         {
-            _titleScreenUI = GameManager.Instance.CreateInstance<TitleScreenUI>(_canvasRoot);
+            _titleScreenUI = GameManager.Instance.CreateInstance<TitleScreenUI>();
+            _titleScreenUI.transform.SetParent(_canvasRoot, false);
             _titleScreenUI.startButton.onClick.AddListener(StartGame);
             _titleScreenUI.quitButton.onClick.AddListener(QuitGame);
         }
@@ -94,8 +100,10 @@ public class GameStateController : MonoBehaviour
         // Set the camera to the title screen camera
         _titleCamera.gameObject.SetActive(true);
         _titleCamera.tag = "MainCamera";
-        _activePlayer.CameraComponent.tag = "Untagged";
-        
+        if (_activePlayer != null)
+        {
+            _activePlayer.CameraComponent.tag = "Untagged";
+        }
         CurrentGameState = GameState.Title;
     }
 
@@ -119,6 +127,7 @@ public class GameStateController : MonoBehaviour
         {
             _activePlayer = GameManager.Instance.CreateInstance<PlayerController>(null, _playerSpawnPoint.position, _playerSpawnPoint.rotation);
             _activePlayer.OnBananaEaten += AddScore;
+            _activePlayer.OnCaughtByMonkey += EndGame;
         }
         else
         {
@@ -126,9 +135,12 @@ public class GameStateController : MonoBehaviour
             _activePlayer.transform.rotation = _playerSpawnPoint.rotation;
         }
         
+        _activePlayer.Setup();
+        
         // Change the main Camera to the one on the PlayerCharacter instance
         _titleCamera.tag = "Untagged";
         _titleCamera.gameObject.SetActive(false);
+        _activePlayer.gameObject.SetActive(true);
         _activePlayer.CameraComponent.tag = "MainCamera";
         
         // Reset score values
@@ -143,9 +155,10 @@ public class GameStateController : MonoBehaviour
         // Create the Player UI system
         if (_playerUI == null)
         {
-            _playerUI = GameManager.Instance.CreateInstance<PlayerUI>(_canvasRoot);
+            _playerUI = GameManager.Instance.CreateInstance<PlayerUI>();
+            _playerUI.transform.SetParent(_canvasRoot, false);
         }
-
+        _playerUI.gameObject.SetActive(true);
         _playerUI.SetToState(this);
         
         OnGameStart?.Invoke();
@@ -156,9 +169,12 @@ public class GameStateController : MonoBehaviour
     public void EndGame()
     {
         // Deactivate the player
+        _playerUI.gameObject.SetActive(false);
         _activePlayer.gameObject.SetActive(false);
+        _titleCamera.gameObject.SetActive(true);
+        _titleCamera.tag = "MainCamera";
+        _activePlayer.CameraComponent.tag = "Untagged";
         
-
         ShowEndScreen();
 
         OnGameEnd?.Invoke();
@@ -169,12 +185,14 @@ public class GameStateController : MonoBehaviour
     {
         if (_endScreenUI == null)
         {
-            _endScreenUI = GameManager.Instance.CreateInstance<EndScreenUI>(_canvasRoot);
+            _endScreenUI = GameManager.Instance.CreateInstance<EndScreenUI>();
+            _endScreenUI.transform.SetParent(_canvasRoot, false);
             _endScreenUI.resetButton.onClick.AddListener(SetupGame);
             _endScreenUI.quitButton.onClick.AddListener(QuitGame);
         }
         _endScreenUI.gameObject.SetActive(true);
         _endScreenUI.SetToState(this);
+        _activePlayer.FreeCursor();
     }
 
     public void SetupGame()
@@ -183,12 +201,12 @@ public class GameStateController : MonoBehaviour
         
         OnGameReset?.Invoke();
         ShowTitleScreen();
+        _endScreenUI?.gameObject?.SetActive(false);
+        _activePlayer?.gameObject?.SetActive(false);
     }
     
     private void QuitGame()
     {
-#if !UNITY_STANDALONE
         Application.Quit();
-#endif
     }
 }
