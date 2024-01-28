@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
         
     }
+
     
     /// <summary>
     /// Creates an instance of a gameplay object by name and returns it. If no transform is provided, it will use the GameManager's transform.
@@ -88,7 +89,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
-        #region CreateInstance overloads for parent, position, and rotation
+    #region CreateInstance overloads for parent, position, and rotation
     // CreateInstance overloads for parent, position, and rotation
     public T CreateInstance<T>(Transform parent, Vector3 position, Quaternion rotation) where T: MonoBehaviour
     {
@@ -147,7 +148,7 @@ public class GameManager : MonoBehaviour
     {
         var component = CreateInstance<T>();
         Transform componentTransform = component.transform;
-        componentTransform.parent = parent;
+        componentTransform.SetParent(parent);
         return component;
     }
     #endregion

@@ -147,7 +147,6 @@ MonoBehaviour:
   isBanana: 0
   bananaEaten: 0
   canMoveCamera: 1
-  isRunning: 1
 --- !u!114 &172388056055904058
 MonoBehaviour:
   m_ObjectHideFlags: 0

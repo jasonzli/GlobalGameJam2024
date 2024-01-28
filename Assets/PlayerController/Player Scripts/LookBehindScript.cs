@@ -11,7 +11,7 @@ public class LookBehindScript : MonoBehaviour
     private Quaternion targetRotation;
 
     [Header("Player Control Script")]
-    public FPSController playerControls;
+    public PlayerController playerControls;
 
     void Start()
     {

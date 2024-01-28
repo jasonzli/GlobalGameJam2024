@@ -12,6 +12,13 @@ public class CountUpTimer : MonoBehaviour
     private int minuteCount;
     private int hourCount;
 
+    public void Reset()
+    {
+        secondsCount = 0;
+        minuteCount = 0;
+        hourCount = 0;
+    }
+    
     void Update()
     {
         UpdateTimerUI();

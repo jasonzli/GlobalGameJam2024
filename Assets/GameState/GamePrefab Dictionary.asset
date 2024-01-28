@@ -17,3 +17,11 @@ MonoBehaviour:
     prefabObject: {fileID: 7750754968981100436, guid: 519d126b80410417d98f55efcd347460, type: 3}
   - name: Monkey
     prefabObject: {fileID: 547909762681190432, guid: 10d9e03ddc82d4428b9be2551fbc75cd, type: 3}
+  - name: PlayerUI
+    prefabObject: {fileID: 6664555675972706856, guid: 0157723eaeb6441eabc1ae238c726c62, type: 3}
+  - name: TitleScreenUI
+    prefabObject: {fileID: 3791447720840089374, guid: f392f74851f034d38a2dd8a94cf6daa1, type: 3}
+  - name: EndScreenUI
+    prefabObject: {fileID: 7619396223900959335, guid: f1bce900426304df193e5cf534eccbb3, type: 3}
+  - name: PlayerController
+    prefabObject: {fileID: 2555221654490002308, guid: 32c185089ff10ca48b4121ee83fea7c7, type: 3}
