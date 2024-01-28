@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 459214844}
   - component: {fileID: 459214843}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,8 +356,8 @@ Transform:
   m_GameObject: {fileID: 459214842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.08, y: 6.3057, z: -15.64}
-  m_LocalScale: {x: 4.05098, y: 10.950675, z: 4.4645224}
+  m_LocalPosition: {x: 0.08, y: 3.9298, z: -15.64}
+  m_LocalScale: {x: 4.05098, y: 6.1991773, z: 4.4645224}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 564269768}
   - component: {fileID: 564269767}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,8 +461,8 @@ Transform:
   m_GameObject: {fileID: 564269766}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.13, y: 6.3057, z: 3.29}
-  m_LocalScale: {x: 4.05098, y: 10.950675, z: 4.4645224}
+  m_LocalPosition: {x: 11.28, y: 3.9298, z: 6.66}
+  m_LocalScale: {x: 4.05098, y: 6.1991773, z: 4.4645224}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 1409597541}
   - component: {fileID: 1409597540}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,8 +1204,8 @@ Transform:
   m_GameObject: {fileID: 1409597539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.5954, y: 6.3057, z: -6.5386}
-  m_LocalScale: {x: 4.05098, y: 10.950675, z: 4.4645224}
+  m_LocalPosition: {x: 16.86, y: 3.9298, z: -7.71}
+  m_LocalScale: {x: 4.05098, y: 6.1991773, z: 4.4645224}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 18e165341adb4ca489c053704652eee2, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 30d631bc1acf4534cb812eaccd87e589, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1410249501
 Transform:
@@ -1637,7 +1637,7 @@ GameObject:
   - component: {fileID: 1694616105}
   - component: {fileID: 1694616104}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1723,8 +1723,8 @@ Transform:
   m_GameObject: {fileID: 1694616103}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.08, y: 6.3057, z: 3.29}
-  m_LocalScale: {x: 4.05098, y: 10.950675, z: 4.4645224}
+  m_LocalPosition: {x: -2.5, y: 3.9298, z: 4.36}
+  m_LocalScale: {x: 4.05098, y: 6.1991773, z: 4.4645224}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1954,7 +1954,7 @@ GameObject:
   - component: {fileID: 2139581467}
   - component: {fileID: 2139581466}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2040,8 +2040,8 @@ Transform:
   m_GameObject: {fileID: 2139581465}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.13, y: 6.3057, z: -15.64}
-  m_LocalScale: {x: 4.05098, y: 10.950675, z: 4.4645224}
+  m_LocalPosition: {x: 9.13, y: 3.9298, z: -15.64}
+  m_LocalScale: {x: 4.05098, y: 6.1991773, z: 4.4645224}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
