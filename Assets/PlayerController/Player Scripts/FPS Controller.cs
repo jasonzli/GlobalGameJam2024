@@ -158,7 +158,7 @@ public class FPSController : MonoBehaviour
         if (Input.GetMouseButtonUp(1) && Time.time > throwCooldownTimer)
         {
             cameraRotate.SetBool("Rotate", false);
-            isBanana = true;
+            
             
             throwCooldownTimer = Time.time + throwCooldown;
         }

@@ -19,7 +19,7 @@ public class EnemyFollow : MonoBehaviour
 
         if (navMeshAgent == null)
         {
-            Debug.LogError("NavMeshAgent component not found.");
+            Debug.LogError("NavMeshAgent component not found on this GameObject.");
         }
     }
 
