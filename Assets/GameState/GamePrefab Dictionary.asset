@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: Banana
     prefabObject: {fileID: 7750754968981100436, guid: 519d126b80410417d98f55efcd347460, type: 3}
   - name: Monkey
-    prefabObject: {fileID: 547909762681190432, guid: 10d9e03ddc82d4428b9be2551fbc75cd, type: 3}
+    prefabObject: {fileID: 15190753157678202, guid: 8a2827ed5e92d40548ff6a8c31a1cbca, type: 3}
   - name: PlayerUI
     prefabObject: {fileID: 6664555675972706856, guid: 0157723eaeb6441eabc1ae238c726c62, type: 3}
   - name: TitleScreenUI

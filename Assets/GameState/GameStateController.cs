@@ -11,6 +11,7 @@ public class GameStateController : MonoBehaviour
     [SerializeField] private Transform _playerSpawnPoint;
     [SerializeField] private Transform _canvasRoot;
     [SerializeField] private Camera _titleCamera;
+    [SerializeField] private List<Transform> _monkeySpawnPoints;
     #endregion
     
     #region Game State Properties
