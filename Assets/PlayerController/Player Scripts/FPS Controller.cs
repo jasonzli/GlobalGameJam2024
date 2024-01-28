@@ -36,6 +36,12 @@ public class FPSController : MonoBehaviour
     public float throwCooldown = 1.5f;
     private float throwCooldownTimer;
 
+    public float consumeBananaTime;
+
+    [Header("Banana Placeholders")]
+    public GameObject freshBanana;
+    public GameObject bananaPeel;
+
     [Header("Bool Check")]
     public bool canMove = true;
     public bool isBanana = false;
@@ -105,7 +111,9 @@ public class FPSController : MonoBehaviour
             if (Input.GetKey(KeyCode.E) && Time.time > grabCooldownTimer)
             {
                 animator.SetTrigger("Grab");
+                
                 grabCooldownTimer = Time.time + grabCooldown;
+                StartCoroutine(EatBanana());
             }
         }
 
@@ -114,11 +122,28 @@ public class FPSController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && Time.time > throwCooldownTimer)
             {
                 animator.SetTrigger("Throw");
+                bananaPeel.SetActive(false);
+                StartCoroutine(DisableThrower());
+                
                 throwCooldownTimer = Time.time + throwCooldown;
             }
+            
+            
+            
+            
         }
 
         
+    }
+    
+    public IEnumerator EatBanana()
+    {
+        yield return new WaitForSeconds(consumeBananaTime);
+        bananaPeel.SetActive(true);
+        freshBanana.SetActive(false);
+        bananaThrower.enabled = true;
+        isBanana = false;
+        bananaEaten = true;
     }
     public void CameraRotate()
     {
@@ -126,16 +151,25 @@ public class FPSController : MonoBehaviour
         {
             cameraRotate.SetBool("Rotate", true);
             isBanana = false;
-            bananaThrower.enabled = false;
+           
             throwCooldownTimer = Time.time + throwCooldown;
         }
         
         if (Input.GetMouseButtonUp(1) && Time.time > throwCooldownTimer)
         {
             cameraRotate.SetBool("Rotate", false);
-            isBanana = false;
-            bananaThrower.enabled = true;
+            isBanana = true;
+            
             throwCooldownTimer = Time.time + throwCooldown;
         }
     }
+   
+    public IEnumerator DisableThrower()
+    {
+        yield return new WaitForSeconds(1);
+        bananaThrower.enabled = false;
+        bananaEaten = false;
+    }
+
+    
 }
