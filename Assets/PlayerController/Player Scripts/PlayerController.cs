@@ -55,6 +55,10 @@ public class PlayerController : MonoBehaviour
 
     CharacterController characterController;
 
+    void Start()
+    {
+        Setup();
+    }
 
     public void Setup()
     {
@@ -182,11 +186,22 @@ public class PlayerController : MonoBehaviour
 
     public void OnControllerColliderHit(ControllerColliderHit other)
     {
-        Debug.Log("HitSomething");
         if (other.gameObject.CompareTag("Monkey"))
         {
             Debug.Log("Caught by monkey");
             OnCaughtByMonkey?.Invoke();
         }
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Banana"))
+        {
+            if (isBanana) return;
+            
+            freshBanana.SetActive(true);
+            isBanana = true;
+        }
+    }
+    
 }

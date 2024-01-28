@@ -9,6 +9,8 @@ public class CollidingWithBananaPile : MonoBehaviour
 
     [Header("Check Can Eat")]
     public PlayerController playerController;
+
+    public bool DestroyOnCollide = false;
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {
@@ -16,7 +18,7 @@ public class CollidingWithBananaPile : MonoBehaviour
         {
             bananaOnHand.SetActive(true);
             playerController.isBanana = true;
-            Destroy(gameObject);
+            if (DestroyOnCollide) Destroy(gameObject);
         }
     }
 }

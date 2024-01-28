@@ -24,4 +24,4 @@ MonoBehaviour:
   - name: EndScreenUI
     prefabObject: {fileID: 7619396223900959335, guid: f1bce900426304df193e5cf534eccbb3, type: 3}
   - name: PlayerController
-    prefabObject: {fileID: 8652606589428414499, guid: 32c185089ff10ca48b4121ee83fea7c7, type: 3}
+    prefabObject: {fileID: 2555221654490002308, guid: 32c185089ff10ca48b4121ee83fea7c7, type: 3}
