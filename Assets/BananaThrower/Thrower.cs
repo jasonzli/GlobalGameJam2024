@@ -7,6 +7,11 @@ public class Thrower : MonoBehaviour
     [SerializeField] private float _bananaThrowForce;
     [SerializeField] private float _bananaThrowTorque;
 
+    
+    [SerializeField] private AudioSource _bananaAudioSource;
+    [SerializeField] private AudioClip _bananaThrownClip;
+    [SerializeField] private float _bananaThrownVolume = 0.5f;
+    
     void OnEnable()
     {
         _inputSystem = GameManager.Instance.Get<InputSystem>();
@@ -20,6 +25,10 @@ public class Thrower : MonoBehaviour
         var bananaRigidbody = banana.GetComponent<Rigidbody>();
         bananaRigidbody.AddForce(_bananaSpawnPoint.forward * _bananaThrowForce);
         bananaRigidbody.AddTorque(_bananaSpawnPoint.up * _bananaThrowTorque);
+        _bananaAudioSource.clip = _bananaThrownClip;
+        _bananaAudioSource.volume = _bananaThrownVolume;
+        _bananaAudioSource.loop = false;
+        _bananaAudioSource.Play();
     }
 
     void OnDisable()

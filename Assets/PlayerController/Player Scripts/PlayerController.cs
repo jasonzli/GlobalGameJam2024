@@ -6,9 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    public Action OnBananaEaten;
-    public Action OnCaughtByMonkey;
+    public event Action OnBananaEaten;
+    public event Action OnCaughtByMonkey;
     public Camera CameraComponent => playerCamera;
+
+    [Header("Prefab References")] 
+    [SerializeField] private AudioSource _runningAudioSource;
+    [SerializeField] private AudioSource _bananaAudioSource;
+    [SerializeField] private AudioClip _bananaEatenClip;
+    [SerializeField] private float _bananaEatenVolume = 0.5f;
+    [SerializeField] private AudioClip _runningClip;
+    [SerializeField] private float _runningVolume = 0.5f;
         
     [Header("Camera")]
     public Camera playerCamera;
@@ -63,6 +71,10 @@ public class PlayerController : MonoBehaviour
     public void Setup()
     {
         characterController = GetComponent<CharacterController>();
+        _runningAudioSource.clip = _runningClip;
+        _runningAudioSource.volume = _runningVolume;
+        _runningAudioSource.loop = true;
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -86,10 +98,19 @@ public class PlayerController : MonoBehaviour
         // Press Left Shift to run
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
+        float curSpeedZ = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+        moveDirection = (forward * curSpeedX) + (right * curSpeedZ);
+        
+        //Horizontal movement Vector
+        Vector3 horizontalMovement = new Vector3(moveDirection.x, 0.0f, moveDirection.z);
+        float dotProduct = Vector3.Dot(horizontalMovement, transform.forward);
+        float normDotProduct = (dotProduct + 1 ) /2;
+        float speedModifier = Mathf.Lerp(.3f,1.0f,normDotProduct);
 
+        moveDirection *= speedModifier;
+        
+        
         // Handles Jumping
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
@@ -104,9 +125,13 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection.y -= gravity * Time.deltaTime;
         }
+        
+        //Play the running clip at a volume depending on the magnitude of move direction
+        _runningAudioSource.volume = _runningVolume * Mathf.Clamp01(Mathf.Sqrt(moveDirection.magnitude));
+        characterController.Move(moveDirection * Time.deltaTime);
 
         // Handles Rotation
-        characterController.Move(moveDirection * Time.deltaTime);
+        
 
          if (canMove && canMoveCamera)
         {
@@ -118,13 +143,19 @@ public class PlayerController : MonoBehaviour
                 transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
             }
         }
+
+         if (Input.GetMouseButtonUp(1))
+         {
+             cameraRotate.SetBool("Rotate", false);
+                 
+         }
     }
 
     public void Animate()
     {
         if (isBanana)
         {
-            if (Input.GetKey(KeyCode.E) && Time.time > grabCooldownTimer)
+            if (Input.GetMouseButtonDown(0) && Time.time > grabCooldownTimer)
             {
                 animator.SetTrigger("Grab");
                 
@@ -152,11 +183,16 @@ public class PlayerController : MonoBehaviour
     public IEnumerator EatBanana()
     {
         yield return new WaitForSeconds(consumeBananaTime);
+        _bananaAudioSource.clip = _bananaEatenClip;
+        _bananaAudioSource.volume = _bananaEatenVolume;
+        _bananaAudioSource.loop = false;
+        _bananaAudioSource.Play();
         bananaPeel.SetActive(true);
         freshBanana.SetActive(false);
         bananaThrower.enabled = true;
         isBanana = false;
         bananaEaten = true;
+        OnBananaEaten?.Invoke();
     }
     public void CameraRotate()
     {
