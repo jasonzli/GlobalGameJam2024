@@ -48,6 +48,8 @@ public class FPSController : MonoBehaviour
     public bool bananaEaten = false;
     public bool canMoveCamera = true;
 
+    public bool isRunning;
+
     CharacterController characterController;
 
     void Start()
@@ -58,21 +60,26 @@ public class FPSController : MonoBehaviour
     }
 
     void Update()
-    {
-        
-        Animate();
-        CameraRotate();
+  {
+    Animate();
+    CameraRotate();
 
-        // Handles Movement
-        Vector3 forward = transform.forward;
-        Vector3 right = transform.right;
+  
+    Vector3 forward = transform.forward;
+    Vector3 right = transform.right;
 
-        // Press Left Shift to run
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+    bool isRunning = Input.GetKey(KeyCode.LeftShift);
+
+    
+    bool isMovingBackward = Input.GetKey(KeyCode.S);
+
+   
+    float curSpeedX = canMove ? CalculateSpeed(isRunning, isMovingBackward) * Input.GetAxis("Vertical") : 0;
+    float curSpeedY = canMove ? CalculateSpeed(isRunning, isMovingBackward) * Input.GetAxis("Horizontal") : 0;
+    float movementDirectionY = moveDirection.y;
+    moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
 
         // Handles Jumping
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
@@ -101,6 +108,20 @@ public class FPSController : MonoBehaviour
                 playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
                 transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
             }
+        }
+    }
+
+    float CalculateSpeed(bool isRunning, bool isMovingBackward)
+    {
+        if (isMovingBackward)
+        {
+        // Reduce the speed when moving backward
+            return walkSpeed * 0.5f; // Adjust the factor as needed
+        }
+        else
+        {
+        // Use the regular walk or run speed
+            return isRunning ? runSpeed : walkSpeed;
         }
     }
 
