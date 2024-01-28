@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyFollow : MonoBehaviour
 {
     public Transform target;
+
+   
     private UnityEngine.AI.NavMeshAgent navMeshAgent;
 
     void Start()
@@ -36,5 +38,7 @@ public class EnemyFollow : MonoBehaviour
         {
             navMeshAgent.SetDestination(target.position);
         }
+
+       
     }
 }
