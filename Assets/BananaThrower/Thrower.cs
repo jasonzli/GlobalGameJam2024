@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Thrower : MonoBehaviour
@@ -11,6 +12,9 @@ public class Thrower : MonoBehaviour
     [SerializeField] private AudioSource _bananaAudioSource;
     [SerializeField] private AudioClip _bananaThrownClip;
     [SerializeField] private float _bananaThrownVolume = 0.5f;
+    
+    
+    private List<GameObject> thrownBananas = new List<GameObject>();
     
     void OnEnable()
     {
@@ -29,10 +33,22 @@ public class Thrower : MonoBehaviour
         _bananaAudioSource.volume = _bananaThrownVolume;
         _bananaAudioSource.loop = false;
         _bananaAudioSource.Play();
+        
+        thrownBananas.Add(banana.gameObject);
     }
 
     void OnDisable()
     {
         _inputSystem.OnLeftClick -= ThrowBanana;
+    }
+
+    public void Reset()
+    {
+        //Destroy all bananas in thrown bananas
+        foreach (var banana in thrownBananas)
+        {
+            Destroy(banana);
+        }
+        thrownBananas.Clear();
     }
 }
