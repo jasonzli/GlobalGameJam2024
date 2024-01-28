@@ -184,16 +184,26 @@ public class GameStateController : MonoBehaviour
     {
         // Spawn location at a random location within a 10 unit sphere around the active player
         
+        //Take the logarithm base 2 of bananas eaten
+        int value = 0;
+        while(Math.Pow(2,value) < BananasEaten)
+        {
+            value++;
+        }
+        
         //Random Direction Vector in Circle
-        Vector3 randomDirection = Random.insideUnitCircle.normalized * Random.Range(30, 40);
-        Vector3 spawnLocation = _activePlayer.transform.position + randomDirection;
+        for (int i = 0; i < value; i++)
+        {
+            Vector3 randomDirection = Random.insideUnitCircle.normalized * Random.Range(30, 40);
+            Vector3 spawnLocation = _activePlayer.transform.position + randomDirection;
         
-        // Create a new monkey at that location
-        MonkeyController newMonkey = GameManager.Instance.CreateInstance<MonkeyController>(null, spawnLocation);
-        newMonkey.OnSlippedOnPeel += AddHitScore;
+            // Create a new monkey at that location
+            MonkeyController newMonkey = GameManager.Instance.CreateInstance<MonkeyController>(null, spawnLocation);
+            newMonkey.OnSlippedOnPeel += AddHitScore;
         
-        // Add the new monkey to the list of monkeys
-        _monkeys.Add(newMonkey);
+            // Add the new monkey to the list of monkeys
+            _monkeys.Add(newMonkey);
+        }
     }
 
     public void EndGame()
