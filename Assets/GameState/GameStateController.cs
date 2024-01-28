@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameStateController : MonoBehaviour
 {
@@ -181,12 +182,14 @@ public class GameStateController : MonoBehaviour
     // Coroutine every time you eat a banana, spawn a new monkey
     public void CreateMonkey()
     {
-        // Pick a random location among spawn points
-        int randomIndex = UnityEngine.Random.Range(0, _monkeySpawnPoints.Count);
-        Transform spawnPoint = _monkeySpawnPoints[randomIndex];
+        // Spawn location at a random location within a 10 unit sphere around the active player
+        
+        //Random Direction Vector in Circle
+        Vector3 randomDirection = Random.insideUnitCircle.normalized * Random.Range(30, 40);
+        Vector3 spawnLocation = _activePlayer.transform.position + randomDirection;
         
         // Create a new monkey at that location
-        MonkeyController newMonkey = GameManager.Instance.CreateInstance<MonkeyController>(null, spawnPoint.position, spawnPoint.rotation);
+        MonkeyController newMonkey = GameManager.Instance.CreateInstance<MonkeyController>(null, spawnLocation);
         newMonkey.OnSlippedOnPeel += AddHitScore;
         
         // Add the new monkey to the list of monkeys
