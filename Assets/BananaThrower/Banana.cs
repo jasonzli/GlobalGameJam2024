@@ -24,7 +24,7 @@ public class Banana : MonoBehaviour
         // Let them handle the logic of what happens when they get hit
         if (other.gameObject.CompareTag("Monkey") || other.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
     

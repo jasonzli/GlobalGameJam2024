@@ -10,7 +10,7 @@ public class MonkeyFallScript : MonoBehaviour
 
     [Header("Chase Sequence")]
     public float chaseTime;
-    public EnemyFollow monkeyAIScript;
+    public MonkeyController monkeyAIScript;
 
     public LookAtConstraint lookAtConstraint;
 
