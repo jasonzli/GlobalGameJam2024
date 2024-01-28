@@ -16,9 +16,10 @@ public class GameStateController : MonoBehaviour
     
     #region Game State Properties
 
-    public Action<int> BananaScoreChanged;
-    public Action<int> BananaHitScoreChanged;
-    public Action<int> MonkeysSurvivedChanged;
+    public event Action<int> BananaScoreChanged;
+    public event Action<int> BananaHitScoreChanged;
+    public event Action<int> MonkeysSurvivedChanged;
+    public event Action MonkeyHit;
 
     private int _bananasEaten;
     public int BananasEaten
@@ -56,9 +57,9 @@ public class GameStateController : MonoBehaviour
     public int SecondsSurvived { get; private set; }
     #endregion
     
-    public Action OnGameStart;
-    public Action OnGameReset;
-    public Action OnGameEnd;
+    public event Action OnGameStart;
+    public event Action OnGameReset;
+    public event Action OnGameEnd;
 
     public enum GameState
     {
