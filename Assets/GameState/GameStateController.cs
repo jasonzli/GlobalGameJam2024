@@ -129,6 +129,8 @@ public class GameStateController : MonoBehaviour
         BananasHit++;
     }
     
+    
+    
     public void StartGame()
     {
         // Turn off the title scree

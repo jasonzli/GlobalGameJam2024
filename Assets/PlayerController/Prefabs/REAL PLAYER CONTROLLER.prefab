@@ -141,7 +141,7 @@ MonoBehaviour:
   playerCamera: {fileID: 9024954433963732954}
   cameraRotate: {fileID: 6975568393605649566}
   bananaThrower: {fileID: 172388056055904058}
-  walkSpeed: 10
+  walkSpeed: 15
   runSpeed: 9
   jumpPower: 6
   gravity: 14

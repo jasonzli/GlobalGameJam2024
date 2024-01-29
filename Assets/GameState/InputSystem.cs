@@ -4,12 +4,13 @@ using UnityEngine;
 public class InputSystem : MonoBehaviour
 {
 
-    public Action OnWPressed;
-    public Action OnAPressed;
-    public Action OnSPressed;
-    public Action OnDPressed;
-    public Action OnLeftClick;
-    public Action OnRightClick;
+    public event Action OnWPressed;
+    public event Action OnAPressed;
+    public event Action OnSPressed;
+    public event Action OnDPressed;
+    public event Action OnLeftClick;
+    public event Action OnRightClick;
+    public event Action OnSpacePressed;
 
     // Update is called once per frame
     void Update()
@@ -35,6 +36,11 @@ public class InputSystem : MonoBehaviour
             Debug.Log("D Pressed");
             OnDPressed?.Invoke();
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Space Presssed");
+            OnSpacePressed?.Invoke();
+        }
         // Track Inputs for the mouse left and right clicks
         if (Input.GetMouseButtonDown(0))
         {
@@ -47,4 +53,7 @@ public class InputSystem : MonoBehaviour
             OnRightClick?.Invoke();
         }
     }
+    
+
+    public Vector2 InputAxisResponse() => new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 }
